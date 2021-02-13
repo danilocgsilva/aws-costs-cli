@@ -1,0 +1,1 @@
+-e git+https://github.com/danilocgsilva/aws-costs-api.git@main#egg=aws-costs-api
