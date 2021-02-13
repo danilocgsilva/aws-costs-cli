@@ -1,3 +1,7 @@
+from aws_costs_api.AWSCosts import AWSCosts
+
 def main():
-    print("Hello World! Starts here the aws_costs program to change the world!")
+    awscosts = AWSCosts()
+    results = awscosts.getCosts()
+    print(results)
 
