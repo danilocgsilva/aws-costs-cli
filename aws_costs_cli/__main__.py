@@ -3,12 +3,16 @@ from danilocgsilvame_python_helpers.DcgsPythonHelpers import DcgsPythonHelpers
 from aws_costs_cli.FormatSingle import FormatSingle
 
 def main():
-    
+
     dcgsPHelpers = DcgsPythonHelpers()
-    args = dcgsPHelpers.command_line_argument_names('profile', 'p')
-    
+    args = dcgsPHelpers.command_line_argument_names('profile', 'p', 'types', 't')
     awscosts = AWSCosts()
     awscosts.setProfile(args.profile)
+
+    if args.types:
+        for service in args.types.split(","):
+            awscosts.setService(service)
+
     results = awscosts.getCosts()
 
     amount = 0
