@@ -1,0 +1,2 @@
+class OutOfOptionException(Exception):
+    pass
