@@ -1,2 +1,4 @@
 __pycache__
 src
+aws_costs_cli.egg-info
+build

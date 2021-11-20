@@ -1,12 +1,13 @@
 from aws_costs_api.AWSCosts import AWSCosts
 from danilocgsilvame_python_helpers.DcgsPythonHelpers import DcgsPythonHelpers
-from aws_costs_cli.FormatSingle import FormatSingle
+from aws_costs_cli.TerminalFormatter import TerminalFormatter
+from aws_costs_cli.CSV import CSV
 from aws_costs_cli.OutOfOptionException import OutOfOptionException
 
 def main():
 
     dcgsPHelpers = DcgsPythonHelpers()
-    args = dcgsPHelpers.command_line_argument_names('profile', 'p', 'types', 't')
+    args = dcgsPHelpers.command_line_argument_names('profile', 'p', 'types', 't', 'format', 'f')
     awscosts = AWSCosts()
     awscosts.setProfile(args.profile)
 
@@ -14,16 +15,12 @@ def main():
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
 
-    results = awscosts.getCosts()
+    if args.format:
+        csvString = CSV().setAWSCostsClass(awscosts).setFormatter(";").get()
+        print(csvString)
+    else:
+        TerminalFormatter().get(awscosts.getCosts())
 
-    amount = 0
-
-    for result in results["ResultsByTime"]:
-        formatSingle = FormatSingle(result)
-        amount += formatSingle.getAmount()
-        __showData(formatSingle)
-
-    __finishes(str(amount), formatSingle.getAmountUnit())
 
 def getServiceTranslation(shortServiceName: str) -> str:
 
@@ -47,19 +44,3 @@ def getServiceTranslation(shortServiceName: str) -> str:
         for key in serviceTranslationBag:
             message += key + "\n"
         raise OutOfOptionException(message)
-
-
-def __finishes(amount, unit):
-    print("Total from last month: " + amount + " " + unit)
-    print("---//---")
-    print("Above, the last month day by day cost from AWS account.")
-
-def __showData(format: FormatSingle):
-    print(
-        "Month and day: " + format.getMonthDay()
-    )
-    print(
-        str(format.getAmount()) + " " + format.getAmountUnit()
-    )
-    print("----")
-
