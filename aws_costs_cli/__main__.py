@@ -7,16 +7,21 @@ from aws_costs_cli.OutOfOptionException import OutOfOptionException
 def main():
 
     dcgsPHelpers = DcgsPythonHelpers()
-    args = dcgsPHelpers.command_line_argument_names('profile', 'p', 'types', 't', 'format', 'f')
+    args = dcgsPHelpers.command_line_argument_names(
+        'profile', 'p', 'types', 't', 'format', 'f', 'start-time', 'st'
+    )
     awscosts = AWSCosts()
     awscosts.setProfile(args.profile)
+
+    if args.start_time:
+        awscosts.setStartTime(args.start_time)
 
     if args.types:
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
 
     if args.format:
-        csvString = CSV().setAWSCostsClass(awscosts).setFormatter(";").get()
+        csvString = CSV().setAWSCostsClass(awscosts).get()
         print(csvString)
     else:
         TerminalFormatter().get(awscosts.getCosts())
