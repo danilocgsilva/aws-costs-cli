@@ -2,6 +2,8 @@
 
 Get human readable costs data from AWS account.
 
+By default, bring each day cost since a month ago. You can custom the period of fetching the data.
+
 ## Installing
 
 Go to the project's root directory and then types:
@@ -23,6 +25,13 @@ If you want to get costs from a specific service, do:
 awscosts --profile <your_aws_profile_name> --type <service>
 ```
 
+if you want to set a starting period, do:
+```
+awscosts --profile <your_aws_profile_name> --start-time 2022-02-16
+```
+
+Maybe you want to plot the day-by-day costs in a
+
 Allowed services are:
 
 * ec2
@@ -41,3 +50,5 @@ You can get prices from several services at once separated by comma:
 ```
 awscosts --profile <your_aws_profile_name> --type workmail,sns
 ```
+
+You can set an starting period since from you want to get the costs.

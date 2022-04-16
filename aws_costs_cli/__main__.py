@@ -8,7 +8,7 @@ def main():
 
     dcgsPHelpers = DcgsPythonHelpers()
     args = dcgsPHelpers.command_line_argument_names(
-        'profile', 'p', 'types', 't', 'format', 'f', 'start-time', 'st'
+        'profile', 'p', 'types', 't', 'format', 'f', 'start-time', 'st', 'currency', 'c'
     )
     awscosts = AWSCosts()
     awscosts.setProfile(args.profile)
