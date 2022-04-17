@@ -21,8 +21,7 @@ awscosts --profile <your_aws_profile_name>
 ```
 
 
-
-if you want to set a starting period, do:
+By default, the output is setted to get data costs from a month ago until the current date. But if you want to set a different starting period, do:
 ```
 awscosts --profile <your_aws_profile_name> --start-time 2022-02-16
 ```
@@ -58,5 +57,3 @@ You can get prices from several services at once separated by comma:
 ```
 awscosts --profile <your_aws_profile_name> --type workmail,sns
 ```
-
-You can set an starting period since from you want to get the costs.
