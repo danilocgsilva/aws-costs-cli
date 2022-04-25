@@ -57,3 +57,35 @@ You can get prices from several services at once separated by comma:
 ```
 awscosts --profile <your_aws_profile_name> --type workmail,sns
 ```
+
+You can at once check all costs for each of above service with the following:
+
+```
+awscosts --profile dcscosts --spread-services
+```
+Then you can see something like this:
+```
+2022-04-23:
+    s3: 0.3582866845
+    workmail: 0.4000000032
+    tax: 0.0
+    cloudwatch: 0.0
+    sns: 0.0
+    route53: 0.0001528
+    rds: 1.0765918608
+    codecommit: 0.0
+    dynamodb: 0.0
+Total in 2022-04-23: 1.8350313485
+2022-04-24:
+    s3: 0.3591142326
+    workmail: 0.4000000032
+    tax: 0.0
+    cloudwatch: 0.0
+    sns: 0.0
+    route53: 6.52e-05
+    rds: 1.0757114117
+    codecommit: 0.0
+    dynamodb: 0.0
+Total in 2022-04-24: 1.8348908475
+```
+**BUT CAUTION**: Still this way not all services that consumes money are considered. Run this command without `--spread-services` and probably you still see some difference. The consumption sum may still be underestimated compared to the output that considers all costs from a period.

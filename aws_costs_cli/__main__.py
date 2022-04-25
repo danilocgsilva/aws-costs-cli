@@ -29,11 +29,8 @@ def main():
         print(data_all_services)
         for time in data_all_services:
             print(time + ":")
-            total = 0
             for service in data_all_services[time]:
                 print("    " + service + ": " + str(data_all_services[time][service]))
-                total += data_all_services[time][service]
-            print("Total in " + time + ": " + str(total))
             
 
 def __get_arguments_parsed():
