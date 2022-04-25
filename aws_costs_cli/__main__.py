@@ -1,15 +1,12 @@
 from aws_costs_api.AWSCosts import AWSCosts
-from danilocgsilvame_python_helpers.DcgsPythonHelpers import DcgsPythonHelpers
 from aws_costs_cli.TerminalFormatter import TerminalFormatter
 from aws_costs_cli.CSV import CSV
 from aws_costs_cli.OutOfOptionException import OutOfOptionException
+import argparse
 
 def main():
-
-    dcgsPHelpers = DcgsPythonHelpers()
-    args = dcgsPHelpers.command_line_argument_names(
-        'profile', 'p', 'types', 't', 'format', 'f', 'start-time', 'st', 'currency', 'c'
-    )
+    args = __get_arguments_parsed()
+    
     awscosts = AWSCosts()
     awscosts.setProfile(args.profile)
 
@@ -49,3 +46,28 @@ def getServiceTranslation(shortServiceName: str) -> str:
         for key in serviceTranslationBag:
             message += key + "\n"
         raise OutOfOptionException(message)
+
+def __get_arguments_parsed():
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--profile",
+        "-",
+        help="The profile with the cost visualization enabled."
+    )
+    parser.add_argument(
+        "--types",
+        "-t",
+        help="Types of costs in filter. Ex.: workmail,sns"
+    )
+    parser.add_argument(
+        "--format",
+        "-f",
+        help="If you want to print in csv. Ex.: --format csv"
+    )
+    parser.add_argument(
+        "--start-time",
+        "-st",
+        help="If you want to change the default starting time to considers the cost (default 1 month). Ex.: --start-time 2022-02-16"
+    )
+    return parser.parse_args()

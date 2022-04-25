@@ -1,3 +1,2 @@
 -e git+https://github.com/danilocgsilva/aws-costs-api.git@main#egg=aws_costs_api
--e git+https://github.com/danilocgsilva/danilocgsilvamepythonhelpers.git@master#egg=danilocgsilvame_python_helpers
 boto3
