@@ -5,19 +5,6 @@ from aws_costs_cli.CSV import CSV
 from aws_costs_cli.functions import spread, getServiceTranslation
 import argparse
 
-serviceTranslationBag = {
-    "ec2": "EC2 - Other",
-    "s3": "Amazon Simple Storage Service",
-    "workmail": "AmazonWorkMail",
-    "tax": "Tax",
-    "cloudwatch": "AmazonCloudWatch",
-    "sns": "Amazon Simple Notification Service",
-    "route53": "Amazon Route 53",
-    "rds": "Amazon Relational Database Service",
-    "codecommit": "AWS CodeCommit",
-    "dynamodb": "Amazon DynamoDB"
-}
-
 def main():
     args = __get_arguments_parsed()
     
@@ -29,7 +16,7 @@ def main():
 
     if args.types:
         for service in args.types.split(","):
-            awscosts.setService(getServiceTranslation(service, serviceTranslationBag))
+            awscosts.setService(getServiceTranslation(service))
 
     if not args.spread_services:
         if args.format:
@@ -38,8 +25,16 @@ def main():
         else:
             TerminalFormatter().get(awscosts.getCosts())
     else:
-        data_all_services = spread(serviceTranslationBag, awscosts)
+        data_all_services = spread(awscosts)
         print(data_all_services)
+        for time in data_all_services:
+            print(time + ":")
+            total = 0
+            for service in data_all_services[time]:
+                print("    " + service + ": " + str(data_all_services[time][service]))
+                total += data_all_services[time][service]
+            print("Total in " + time + ": " + str(total))
+            
 
 def __get_arguments_parsed():
     
