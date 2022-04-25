@@ -13,6 +13,11 @@ def main():
     if args.start_time:
         awscosts.setStartTime(args.start_time)
 
+    #if args.spread_services:
+    #    print("The services must be spreaded.")
+    #else:
+    #    print("The services may not be spreaded.")
+
     if args.types:
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
@@ -69,5 +74,11 @@ def __get_arguments_parsed():
         "--start-time",
         "-st",
         help="If you want to change the default starting time to considers the cost (default 1 month). Ex.: --start-time 2022-02-16"
+    )
+    parser.add_argument(
+        "--spread-services",
+        "-ss",
+        action="store_true",
+        help="Shows the cost for each service."
     )
     return parser.parse_args()
