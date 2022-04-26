@@ -1,5 +1,4 @@
 from aws_costs_api.AWSCosts import AWSCosts
-from numpy import result_type
 from aws_costs_cli.TerminalFormatter import TerminalFormatter
 from aws_costs_cli.CSV import CSV
 from aws_costs_cli.functions import spread, getServiceTranslation
