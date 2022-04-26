@@ -51,12 +51,34 @@ Allowed services are:
 * rds
 * codecommit
 * dynamodb
+* ce
+* compute
+* cloudfront
+* efs
+* kms
 
 You can get prices from several services at once separated by comma:
 
 ```
 awscosts --profile <your_aws_profile_name> --type workmail,sns
 ```
+
+Good to know the meaning of each service (following the results of command: `aws ce get-dimension-values --dimension SERVICE --time-period Start=2022-04-01,End=2022-04-25`):
+
+* ec2: EC2 - Other
+* ce: AWS Cost Explorer
+* compute: Amazon Elastic Compute Cloud - Compute
+* s3: Amazon Simple Storage Service
+* workmail: AmazonWorkMail
+* tax: Tax
+* cloudwatch: AmazonCloudWatch
+* sns: Amazon Simple Notification Service
+* route53: Amazon Route 53
+* rds: Amazon Relational Database Service
+* dynamodb: Amazon DynamoDB,
+* kms: AWS Key Management Service,
+* cloudfront: Amazon CloudFront,
+* efs: Amazon Elastic File System
 
 You can at once check all costs for each of above service with the following:
 
@@ -88,4 +110,6 @@ Total in 2022-04-23: 1.8350313485
     dynamodb: 0.0
 Total in 2022-04-24: 1.8348908475
 ```
-**BUT CAUTION**: Still this way not all services that consumes money are considered. Run this command without `--spread-services` and probably you still see some difference. The consumption sum may still be underestimated compared to the output that considers all costs from a period.
+**BUT CAUTION**: Several api calls to AWS may be done at once with the parameter `--spread-services`. At the time of this writting, AWS charges US$ 0.01 for each api call. So use this parameter with moderation, or you will ended up with unexpected charge rise.
+
+**ANOTHER WARNING**: Still this way not all services that consumes money are considered. Run this command without `--spread-services` and probably you still see some difference. The consumption sum may still be underestimated compared to the output that considers all costs from a period.

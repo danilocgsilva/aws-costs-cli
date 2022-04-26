@@ -1,16 +1,21 @@
 from aws_costs_cli.OutOfOptionException import OutOfOptionException
 
 serviceTranslationBag = {
+    "tax": "Tax",
     "ec2": "EC2 - Other",
+    "compute": "Amazon Elastic Compute Cloud - Compute",
     "s3": "Amazon Simple Storage Service",
     "workmail": "AmazonWorkMail",
-    "tax": "Tax",
     "cloudwatch": "AmazonCloudWatch",
     "sns": "Amazon Simple Notification Service",
     "route53": "Amazon Route 53",
     "rds": "Amazon Relational Database Service",
     "codecommit": "AWS CodeCommit",
-    "dynamodb": "Amazon DynamoDB"
+    "dynamodb": "Amazon DynamoDB",
+    "kms": "AWS Key Management Service",
+    "cloudfront": "Amazon CloudFront",
+    "efs": "Amazon Elastic File System",
+    "ce": "AWS Cost Explorer"
 }
 
 def spread(awscosts) -> dict:
@@ -22,10 +27,17 @@ def spread(awscosts) -> dict:
         for single_result in results_by_time:
             single_result = __shrink_data(single_result, key_service)
 
-            if single_result["period"] in by_date_service_data:
-                by_date_service_data[single_result["period"]][key_service] = single_result["amount"]
-            else:
+            if not single_result["period"] in by_date_service_data:
                 by_date_service_data[single_result["period"]] = {}
+
+            by_date_service_data[single_result["period"]][key_service] = single_result["amount"]
+
+    for date in by_date_service_data:
+        date_sum = 0
+        for service_key in by_date_service_data[date]:
+            date_sum += by_date_service_data[date][service_key]
+        by_date_service_data[date]["TOTAL"] = date_sum
+
     return by_date_service_data
 
 def getServiceTranslation(shortServiceName: str) -> str:
