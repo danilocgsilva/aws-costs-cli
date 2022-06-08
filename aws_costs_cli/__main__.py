@@ -61,6 +61,7 @@ def __get_arguments_parsed():
         action="store_true",
         help="Shows the cost for each service."
     )
+    
     return parser.parse_args()
 
 
