@@ -1,4 +1,5 @@
 from aws_costs_cli.OutOfOptionException import OutOfOptionException
+from aws_costs_api.AWSCosts import AWSCosts
 
 serviceTranslationBag = {
     "tax": "Tax",
@@ -18,7 +19,7 @@ serviceTranslationBag = {
     "ce": "AWS Cost Explorer"
 }
 
-def spread(awscosts) -> dict:
+def spread(awscosts: AWSCosts) -> dict:
 
     by_date_service_data = {}
     for key_service in serviceTranslationBag:

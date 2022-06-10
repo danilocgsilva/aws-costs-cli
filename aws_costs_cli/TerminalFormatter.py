@@ -2,6 +2,9 @@ from aws_costs_cli.FormatSingle import FormatSingle
 
 class TerminalFormatter:
 
+    def __init__(self):
+        self.all_data_services = None
+
     def get(self, results: dict):
         amount = 0
 
@@ -12,6 +15,16 @@ class TerminalFormatter:
 
         self.__finishes(str(amount), formatSingle.getAmountUnit())
 
+    def set_all_data_services(self, all_data_services: dict):
+        self.all_data_services = all_data_services
+        return self
+
+    def print_spread(self):
+        for time in self.all_data_services:
+            print(time + ":")
+            for service in self.all_data_services[time]:
+                print("    " + service + ": " + str(self.all_data_services[time][service]))
+
     def __showData(self, format: FormatSingle):
         print(
             "Month and day: " + format.getMonthDay()
@@ -20,6 +33,7 @@ class TerminalFormatter:
             str(format.getAmount()) + " " + format.getAmountUnit()
         )
         print("----")
+
 
 
     def __finishes(self, amount, unit):

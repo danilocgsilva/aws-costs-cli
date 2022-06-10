@@ -17,19 +17,18 @@ def main():
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
 
+    terminal_formatter = TerminalFormatter()
+
     if not args.spread_services:
         if args.format:
             csvString = CSV().setAWSCostsClass(awscosts).get()
             print(csvString)
         else:
-            TerminalFormatter().get(awscosts.getCosts())
+            terminal_formatter.get(awscosts.getCosts())
     else:
         data_all_services = spread(awscosts)
-        print(data_all_services)
-        for time in data_all_services:
-            print(time + ":")
-            for service in data_all_services[time]:
-                print("    " + service + ": " + str(data_all_services[time][service]))
+        terminal_formatter.set_all_data_services(data_all_services)
+        terminal_formatter.print_spread()
             
 
 def __get_arguments_parsed():

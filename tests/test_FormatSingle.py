@@ -23,7 +23,6 @@ class test_FormatSingle(unittest.TestCase):
         returned_expression = self.formatSingle.getAmountUnit()
         self.assertEqual(expected_string, returned_expression)
 
-
     def __return_test_dict(self):
         return {
             "TimePeriod": {

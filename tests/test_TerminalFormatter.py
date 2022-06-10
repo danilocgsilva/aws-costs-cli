@@ -44,3 +44,6 @@ Above, the last month day by day cost from AWS account.
         sys.stdout = sys.__stdout__
 
         self.assertEqual(final_data, capturedOutput.getvalue())
+
+    def test_print_spread(self):
+        self.assertEqual("needs", "works")
