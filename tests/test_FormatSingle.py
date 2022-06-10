@@ -39,3 +39,5 @@ class test_FormatSingle(unittest.TestCase):
             "Estimated": False
         }
 
+if __name__ == '__main__':
+    unittest.main()

@@ -1,7 +1,8 @@
 from aws_costs_api.AWSCosts import AWSCosts
+from aws_costs_cli.SpreadCalculator import SpreadCalculator
 from aws_costs_cli.TerminalFormatter import TerminalFormatter
 from aws_costs_cli.CSV import CSV
-from aws_costs_cli.functions import spread, getServiceTranslation
+from aws_costs_cli.functions import getServiceTranslation
 import argparse
 
 def main():
@@ -26,10 +27,11 @@ def main():
         else:
             terminal_formatter.get(awscosts.getCosts())
     else:
-        data_all_services = spread(awscosts)
+        spreadCalculator = SpreadCalculator()
+        spreadCalculator.set_client(awscosts)
+        data_all_services = spreadCalculator.get_data()
         terminal_formatter.set_all_data_services(data_all_services)
         terminal_formatter.print_spread()
-            
 
 def __get_arguments_parsed():
     
