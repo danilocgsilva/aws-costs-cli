@@ -17,8 +17,10 @@ class SpreadCalculator:
 
     def __hidrate_raw_data(self):
         for key_service in serviceTranslationBag:
+            
             self.client.setUniqueService(getServiceTranslation(key_service))
             results_by_time = self.client.getCosts()["ResultsByTime"]
+
             for single_result in results_by_time:
                 single_result = self.__shrink_data(single_result, key_service)
 
