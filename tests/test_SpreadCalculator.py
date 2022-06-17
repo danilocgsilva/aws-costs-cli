@@ -110,8 +110,6 @@ class test_SpreadCalculator(unittest.TestCase):
 
         object_return = self.spreadCalculator.get_data()
 
-        #print(object_return)
-
         self.assertEqual(spread_calculations_get_data_results, object_return)
 
 if __name__ == '__main__':
