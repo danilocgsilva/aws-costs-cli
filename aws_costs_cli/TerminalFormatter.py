@@ -22,8 +22,19 @@ class TerminalFormatter:
     def print_spread(self):
         for time in self.all_data_services:
             print(time + ":")
+            block_value = 0
+            line_strings_list = []
             for service in self.all_data_services[time]:
-                print("    " + service + ": " + str(self.all_data_services[time][service]))
+                service_value = self.all_data_services[time][service]
+                line_strings_list.append({"service": service, "value": service_value})
+                if (service != "TOTAL"):
+                    block_value += service_value
+            for line_string in line_strings_list:
+                if (line_string["service"] != "TOTAL"):
+                    percentage = line_string["value"] / block_value * 100
+                    print("    " + line_string["service"] + ": " + str(line_string["value"]) + " ({}%)".format(round(percentage, 2)))
+                else:
+                    print("    " + line_string["service"] + ": " + str(line_string["value"]))
 
     def __showData(self, format: FormatSingle):
         print(
