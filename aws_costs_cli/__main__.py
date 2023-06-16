@@ -22,8 +22,11 @@ def main():
 
     if not args.spread_services:
         if args.format:
-            csvString = CSV().setAWSCostsClass(awscosts).get()
-            print(csvString)
+            if args.format == "csv":
+                csvString = CSV().setAWSCostsClass(awscosts).get()
+                print(csvString)
+            else:
+                raise Exception("This format is not implemented yiet!")
         else:
             terminal_formatter.get(awscosts.getCosts())
     else:
