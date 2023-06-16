@@ -4,6 +4,7 @@ from aws_costs_cli.TerminalFormatter import TerminalFormatter
 from aws_costs_cli.CSV import CSV
 from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
 import argparse
+import json
 
 def main():
     args = __get_arguments_parsed()
@@ -26,7 +27,12 @@ def main():
                 csvString = CSV().setAWSCostsClass(awscosts).get()
                 print(csvString)
             elif args.format == "awsraw":
-                print(awscosts.getCosts())
+                print(
+                    json.dumps(
+                        awscosts.getCosts(),
+                        indent=4
+                    )
+                )
             else:
                 raise Exception("This format is not implemented yiet!")
         else:
