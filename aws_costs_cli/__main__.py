@@ -25,6 +25,8 @@ def main():
             if args.format == "csv":
                 csvString = CSV().setAWSCostsClass(awscosts).get()
                 print(csvString)
+            elif args.format == "awsraw":
+                print(awscosts.getCosts())
             else:
                 raise Exception("This format is not implemented yiet!")
         else:
