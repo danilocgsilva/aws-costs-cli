@@ -2,7 +2,7 @@ from aws_costs_api.AWSCosts import AWSCosts
 from aws_costs_cli.SpreadCalculator import SpreadCalculator
 from aws_costs_cli.TerminalFormatter import TerminalFormatter
 from aws_costs_cli.CSV import CSV
-from aws_costs_cli.functions import getServiceTranslation
+from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
 import argparse
 
 def main():
@@ -22,13 +22,17 @@ def main():
 
     if not args.spread_services:
         if args.format:
-            csvString = CSV().setAWSCostsClass(awscosts).get()
-            print(csvString)
+            if args.format == "csv":
+                csvString = CSV().setAWSCostsClass(awscosts).get()
+                print(csvString)
+            else:
+                raise Exception("This format is not implemented yiet!")
         else:
             terminal_formatter.get(awscosts.getCosts())
     else:
         spreadCalculator = SpreadCalculator()
         spreadCalculator.set_client(awscosts)
+        spreadCalculator.set_translation_bag(serviceTranslationBag)
         data_all_services = spreadCalculator.get_data()
         terminal_formatter.set_all_data_services(data_all_services)
         terminal_formatter.print_spread()
@@ -64,5 +68,3 @@ def __get_arguments_parsed():
     )
     
     return parser.parse_args()
-
-
