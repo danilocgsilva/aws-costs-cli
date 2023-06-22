@@ -61,7 +61,7 @@ def __get_arguments_parsed():
     parser.add_argument(
         "--format",
         "-f",
-        help="If you want to print in csv. Ex.: --format csv"
+        help="If you want to print in csv. Ex.: --format csv. Availables: csv, awsraw"
     )
     parser.add_argument(
         "--start-time",
