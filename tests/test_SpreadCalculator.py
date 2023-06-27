@@ -3,7 +3,6 @@ from aws_costs_cli.SpreadCalculator import SpreadCalculator
 from aws_costs_api.AWSCosts import AWSCosts
 from aws_api_mock.CostExplorer import CostExplorer
 
-
 class test_SpreadCalculator(unittest.TestCase):
 
     def setUp(self):

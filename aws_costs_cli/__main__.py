@@ -5,6 +5,7 @@ from aws_costs_cli.CSV import CSV
 from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
 import argparse
 import json
+import os
 
 def main():
     args = __get_arguments_parsed()
@@ -18,7 +19,9 @@ def main():
     if args.types:
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
-
+            
+    connectionString = os.environ.get("CONNECTIONSTRING")
+        
     terminal_formatter = TerminalFormatter()
 
     if not args.spread_services:
@@ -29,14 +32,14 @@ def main():
             elif args.format == "awsraw":
                 print(
                     json.dumps(
-                        awscosts.getCosts(),
+                        awscosts.getCosts(connectionString),
                         indent=4
                     )
                 )
             else:
                 raise Exception("This format is not implemented yiet!")
         else:
-            terminal_formatter.get(awscosts.getCosts())
+            terminal_formatter.get(awscosts.getCosts(connectionString))
     else:
         spreadCalculator = SpreadCalculator()
         spreadCalculator.set_client(awscosts)
