@@ -83,7 +83,7 @@ Good to know the meaning of each service (following the results of command: `aws
 You can at once check all costs for each of above service with the following:
 
 ```
-awscosts --profile dcscosts --spread-services
+awscosts --profile costs_profile --spread-services
 ```
 Then you can see something like this:
 ```

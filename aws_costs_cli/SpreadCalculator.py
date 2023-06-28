@@ -13,16 +13,15 @@ class SpreadCalculator:
     def set_translation_bag(self, translation_bag: serviceTranslationBag):
         self.translation_bag = translation_bag
 
-    def get_data(self) -> dict:
-        self.__hidrate_raw_data()
+    def get_data(self, connectionString) -> dict:
+        self.__hidrate_raw_data(connectionString)
         self.__add_summarization_data()
         return self.by_date_service_data
 
-    def __hidrate_raw_data(self):
+    def __hidrate_raw_data(self, connectionString):
         for key_service in self.translation_bag:
-            
             self.client.setUniqueService(getServiceTranslation(key_service))
-            results_by_time = self.client.getCosts()["ResultsByTime"]
+            results_by_time = self.client.getCosts(connectionString)["ResultsByTime"]
 
             for single_result in results_by_time:
                 single_result = self.__shrink_data(single_result, key_service)
