@@ -20,7 +20,7 @@ def main():
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
             
-    connectionString = os.environ.get("CONNECTIONSTRING")
+    connectionString = os.environ.get("SQLITECONNECTIONSTRING")
         
     terminal_formatter = TerminalFormatter()
 
@@ -48,7 +48,7 @@ def __get_arguments_parsed():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--profile",
-        "-",
+        "-p",
         help="The profile with the cost visualization enabled."
     )
     parser.add_argument(

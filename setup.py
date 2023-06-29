@@ -17,7 +17,10 @@ setup(
     author="Danilo Silva",
     author_email="contact@danilocgsilva.me",
     packages=["aws_costs_cli"],
-    entry_points={"console_scripts": ["awscosts=aws_costs_cli.__main__:main"],},
+    entry_points={"console_scripts": [
+        "awscosts=aws_costs_cli.__main__:main",
+        "awscosts_tomongo=aws_costs_cli.tomongo:main"
+    ],},
     include_package_data=True
 )
 
