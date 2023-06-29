@@ -1,5 +1,7 @@
 # AWS cost utility 
 
+* [Storage and cache](#Storage-and-cache)
+
 Get human readable costs data from AWS account.
 
 By default, bring each day cost since a month ago. You can custom the period of fetching the data.
@@ -113,3 +115,9 @@ Total in 2022-04-24: 1.8348908475
 **BUT CAUTION**: Several api calls to AWS may be done at once with the parameter `--spread-services`. At the time of this writting, AWS charges US$ 0.01 for each api call. So use this parameter with moderation, or you will ended up with unexpected charge rise.
 
 **ANOTHER WARNING**: Still this way not all services that consumes money are considered. Run this command without `--spread-services` and probably you still see some difference. The consumption sum may still be underestimated compared to the output that considers all costs from a period.
+
+## Storage and cache
+
+The script search for a environment variable called `SQLITECONNECTIONSTRING`, which will be the path for a sqlite file. If no string are found, the fetched data won`t be cached and no further research over the data is possible. Remember that asking for costs in AWS is relativelly expesive. So consecutives calls with same parameters is better with cache to save some resource. Furthermore, the storaged data can be latter be retrieved, analysed and receve further processing.
+
+The environment also can have `MONGOCONNECTIONSTRING`, in caso you want to transfer all data stored on sqlite to a mongodb to a better visualization.
