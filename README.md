@@ -118,6 +118,6 @@ Total in 2022-04-24: 1.8348908475
 
 ## Storage and cache
 
-The script search for a environment variable called `SQLITECONNECTIONSTRING`, which will be the path for a sqlite file. If no string are found, the fetched data won`t be cached and no further research over the data is possible. Remember that asking for costs in AWS is relativelly expesive. So consecutives calls with same parameters is better with cache to save some resource. Furthermore, the storaged data can be latter be retrieved, analysed and receve further processing.
+The script search for a environment variable called `SQLITECONNECTIONSTRING`, which will be the path for a sqlite file. If no string are found, the fetched data won`t be cached and no further research over the data is possible. Remember that asking for costs in AWS is relativelly expensive. So consecutives calls with same parameters is better with cache to save some resource. Furthermore, the storaged data can be latter be retrieved, analysed and receve further processing.
 
-The environment also can have `MONGOCONNECTIONSTRING`, in caso you want to transfer all data stored on sqlite to a mongodb to a better visualization.
+The environment also can have `MONGOCONNECTIONSTRING`, in case you want to transfer all data stored on sqlite to a mongodb to a better visualization. There's the command line utility that is installed together to the current cli, called `awscosts_tomongo`. Execute it, and all data is passed to mongodb.
