@@ -118,6 +118,23 @@ Total in 2022-04-24: 1.8348908475
 
 ## Storage and cache
 
-The script search for a environment variable called `SQLITECONNECTIONSTRING`, which will be the path for a sqlite file. If no string are found, the fetched data won`t be cached and no further research over the data is possible. Remember that asking for costs in AWS is relativelly expensive. So consecutives calls with same parameters is better with cache to save some resource. Furthermore, the storaged data can be latter be retrieved, analysed and receve further processing.
+The script search for a environment variable called `CONNECTIONSTRING`. If no string are found, the fetched data won`t be cached and no further research over the data is possible. Remember that asking for costs in AWS is relativelly expensive. So consecutives calls with same parameters is better with cache to save some resource. Furthermore, the storaged data can be latter be retrieved, analysed and receve further processing.
+
+The connection string can be of two formats:
+
+One for sqlite: in this case, the connection string must exists in the format:
+```
+sqlite:<connection_string_sqlite>
+```
+Qhere `<connection_string_sqlite>` is just a file path for the sqlite database (which may even not exists, it is immediately created if not exists).
+
+If the connection string is to connect to a database, the connection string must be in the folowing format:
+```
+mysql:<connection_string_mysql>
+```
+Where `<connection_string_mysql>` mus follows the following format:
+```
+USER=my_user_name;PASSWORD=the_secret_passowrd;HOST=database_host;DATABASE_NAME=the_database_name;PORT=the_port_which_is_optional
+```
 
 The environment also can have `MONGOCONNECTIONSTRING`, in case you want to transfer all data stored on sqlite to a mongodb to a better visualization. There's the command line utility that is installed together to the current cli, called `awscosts_tomongo`. Execute it, and all data is passed to mongodb.
