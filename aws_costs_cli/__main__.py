@@ -20,7 +20,7 @@ def main():
         for service in args.types.split(","):
             awscosts.setService(getServiceTranslation(service))
             
-    connectionString = os.environ.get("SQLITECONNECTIONSTRING")
+    connectionString = os.environ.get("CONNECTIONSTRING")
         
     terminal_formatter = TerminalFormatter()
 
