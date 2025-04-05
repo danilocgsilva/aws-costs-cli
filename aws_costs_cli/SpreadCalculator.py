@@ -5,20 +5,24 @@ class SpreadCalculator:
 
     def __init__(self):
         self.cleint = None
+        self.format = None
 
     def set_client(self, client: AWSCosts):
         self.client = client
         self.by_date_service_data = {}
 
-    def set_translation_bag(self, translation_bag: serviceTranslationBag):
+    def set_translation_bag(self, translation_bag):
         self.translation_bag = translation_bag
 
-    def get_data(self, connectionString) -> dict:
+    def get_data(self, connectionString = None) -> dict:
         self.__hidrate_raw_data(connectionString)
         self.__add_summarization_data()
         return self.by_date_service_data
-
-    def __hidrate_raw_data(self, connectionString):
+    
+    def set_csv_format(self):
+        self.format = "csv"
+        
+    def __hidrate_raw_data(self, connectionString = None):
         for key_service in self.translation_bag:
             self.client.setUniqueService(getServiceTranslation(key_service))
             results_by_time = self.client.getCosts(connectionString)["ResultsByTime"]

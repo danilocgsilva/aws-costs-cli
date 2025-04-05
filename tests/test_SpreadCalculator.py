@@ -2,6 +2,7 @@ import unittest
 from aws_costs_cli.SpreadCalculator import SpreadCalculator
 from aws_costs_api.AWSCosts import AWSCosts
 from aws_api_mock.CostExplorer import CostExplorer
+from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
 
 class test_SpreadCalculator(unittest.TestCase):
 
@@ -13,7 +14,7 @@ class test_SpreadCalculator(unittest.TestCase):
         mocked_ce_client.set_mock_count(5)
         awscosts = AWSCosts(mocked_ce_client)
         self.spreadCalculator.set_client(awscosts)
-
+        self.spreadCalculator.set_translation_bag(serviceTranslationBag)
         spread_calculations_get_data_results = {
             "2017-05-09": {
                 "tax": 0.07750604831243847,

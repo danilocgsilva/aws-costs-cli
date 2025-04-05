@@ -1,0 +1,1 @@
+-e git+https://github.com/danilocgsilva/aws-data-mock.git@main#egg=aws_api_mock

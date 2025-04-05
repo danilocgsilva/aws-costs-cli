@@ -5,6 +5,7 @@ from aws_api_mock.CostExplorer import CostExplorer
 import io
 import sys
 from aws_costs_cli.SpreadCalculator import SpreadCalculator
+from aws_costs_cli.functions import serviceTranslationBag
 
 class test_TerminalFormatter(unittest.TestCase):
 
@@ -54,6 +55,7 @@ Above, the last month day by day cost from AWS account.
 
         spreadCalculator = SpreadCalculator()
         spreadCalculator.set_client(awscosts)
+        spreadCalculator.set_translation_bag(serviceTranslationBag)
         data_all_services = spreadCalculator.get_data()
         self.terminal_formatter.set_all_data_services(data_all_services)
 
