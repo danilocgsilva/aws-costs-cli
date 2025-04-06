@@ -13,13 +13,6 @@ class test_TerminalFormatter(unittest.TestCase):
         self.terminal_formatter = TerminalFormatter()
     
     def test_get(self):
-
-        costExplorerMocked = CostExplorer()
-        costExplorerMocked.set_mock_count(5)
-        awscosts = AWSCosts(costExplorerMocked)
-
-        awscosts.getCosts()
-
         final_data = '''Month and day: 05-09
 0.5065006818156758 USD
 ----
@@ -39,6 +32,10 @@ Total from last month: 3.945384036920979 USD
 ---//---
 Above, the last month day by day cost from AWS account.
 '''
+
+        costExplorerMocked = CostExplorer()
+        costExplorerMocked.set_mock_count(5)
+        awscosts = AWSCosts(costExplorerMocked)
 
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
@@ -153,6 +150,21 @@ Above, the last month day by day cost from AWS account.
         generated_data = capturedOutput.getvalue()
 
         self.assertEqual(expected_result, generated_data)
+
+    def test_print_setting_csv_format(self):
+
+        costExplorerMocked = CostExplorer()
+        costExplorerMocked.set_mock_count(5)
+        awscosts = AWSCosts(costExplorerMocked)
+
+        spreadCalculator = SpreadCalculator()
+        spreadCalculator.set_client(awscosts)
+        spreadCalculator.set_translation_bag(serviceTranslationBag)
+        data_all_services = spreadCalculator.get_data()
+        self.terminal_formatter.set_all_data_services(data_all_services)
+
+        capturedOutput = io.StringIO()  
+    
 
 if __name__ == '__main__':
     unittest.main()

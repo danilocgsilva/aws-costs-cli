@@ -4,6 +4,7 @@ class TerminalFormatter:
 
     def __init__(self):
         self.all_data_services = None
+        self.csv_format = False
 
     def get(self, results: dict):
         amount = 0
@@ -36,6 +37,9 @@ class TerminalFormatter:
                 else:
                     print("    " + line_string["service"] + ": " + str(line_string["value"]))
 
+    def set_csv_format(self):
+        self.csv_format = True
+
     def __showData(self, format: FormatSingle):
         print(
             "Month and day: " + format.getMonthDay()
@@ -44,8 +48,6 @@ class TerminalFormatter:
             str(format.getAmount()) + " " + format.getAmountUnit()
         )
         print("----")
-
-
 
     def __finishes(self, amount, unit):
         print("Total from last month: " + amount + " " + unit)

@@ -7,7 +7,7 @@ from aws_costs_cli.functions import result_spread_services
 from aws_costs_cli.SpreadCalculator import SpreadCalculator
 from aws_costs_api.AWSCosts import AWSCosts
 from aws_costs_cli.TerminalFormatter import TerminalFormatter
-
+from aws_api_mock.CostExplorer import CostExplorer
 class test_result_spread_services(unittest.TestCase):
 
     # def test_result_spread_services(self):
@@ -24,6 +24,10 @@ class test_result_spread_services(unittest.TestCase):
     def test_result_spread_services(self):
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
+
+        costExplorerMocked = CostExplorer()
+        costExplorerMocked.set_mock_count(5)
+        awscosts = AWSCosts(costExplorerMocked)
 
         awscosts = AWSCosts()
         terminal_formatter = TerminalFormatter()
