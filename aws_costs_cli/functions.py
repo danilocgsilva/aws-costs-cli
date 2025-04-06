@@ -28,4 +28,7 @@ def getServiceTranslation(shortServiceName: str) -> str:
             message += key + "\n"
         raise OutOfOptionException(message)
 
-
+def result_spread_services(spreadCalculator, terminal_formatter, connectionString):
+    data_all_services = spreadCalculator.get_data(connectionString)
+    terminal_formatter.set_all_data_services(data_all_services)
+    terminal_formatter.print_spread()

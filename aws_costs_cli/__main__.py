@@ -6,6 +6,7 @@ from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
 import argparse
 import json
 import os
+from aws_costs_cli.functions import result_spread_services
 
 def main():
     args = __get_arguments_parsed()
@@ -41,7 +42,10 @@ def main():
         else:
             terminal_formatter.get(awscosts.getCosts(connectionString))
     else:
-        __result_spread_services(awscosts, terminal_formatter, connectionString)
+        spreadCalculator = SpreadCalculator()
+        spreadCalculator.set_client(awscosts)
+        spreadCalculator.set_translation_bag(serviceTranslationBag)
+        result_spread_services(spreadCalculator, terminal_formatter, connectionString)
 
 def __get_arguments_parsed():
     
@@ -75,10 +79,3 @@ def __get_arguments_parsed():
     
     return parser.parse_args()
 
-def __result_spread_services(awscosts, terminal_formatter, connectionString):
-    spreadCalculator = SpreadCalculator()
-    spreadCalculator.set_client(awscosts)
-    spreadCalculator.set_translation_bag(serviceTranslationBag)
-    data_all_services = spreadCalculator.get_data(connectionString)
-    terminal_formatter.set_all_data_services(data_all_services)
-    terminal_formatter.print_spread()
