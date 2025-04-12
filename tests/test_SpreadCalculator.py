@@ -2,7 +2,7 @@ import unittest
 from aws_costs_cli.SpreadCalculator import SpreadCalculator
 from aws_costs_api.AWSCosts import AWSCosts
 from aws_api_mock.CostExplorer import CostExplorer
-from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
+from aws_costs_cli.functions import serviceTranslationBag
 
 class test_SpreadCalculator(unittest.TestCase):
 

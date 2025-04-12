@@ -4,11 +4,11 @@ from aws_costs_cli.functions import getServiceTranslation, serviceTranslationBag
 class SpreadCalculator:
 
     def __init__(self):
-        self.cleint = None
+        self.awsCosts = None
         self.format = None
 
     def set_client(self, client: AWSCosts):
-        self.client = client
+        self.awsCosts = client
         self.by_date_service_data = {}
 
     def set_translation_bag(self, translation_bag):
@@ -24,8 +24,8 @@ class SpreadCalculator:
         
     def __hidrate_raw_data(self, connectionString = None):
         for key_service in self.translation_bag:
-            self.client.setUniqueService(getServiceTranslation(key_service))
-            results_by_time = self.client.getCosts(connectionString)["ResultsByTime"]
+            self.awsCosts.setUniqueService(getServiceTranslation(key_service))
+            results_by_time = self.awsCosts.getCosts(connectionString)["ResultsByTime"]
 
             for single_result in results_by_time:
                 single_result = self.__shrink_data(single_result, key_service)
