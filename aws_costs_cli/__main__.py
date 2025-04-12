@@ -25,34 +25,28 @@ def main():
         
     terminal_formatter = TerminalFormatter()
 
-    if not args.spread_services:
-        if args.format:
-            if args.format == "csv":
-                csvString = CSV().setAWSCostsClass(awscosts).get()
-                print(csvString)
-            elif args.format == "awsraw":
-                print(
-                    json.dumps(
-                        awscosts.getCosts(connectionString),
-                        indent=4
-                    )
-                )
-            else:
-                raise Exception("This format is not implemented yiet!")
-        else:
-            terminal_formatter.get(awscosts.getCosts(connectionString))
-    else:
+    if args.spread_services:
         if args.format == "csv":
             csv = CSV()
             csv.setAWSCostsClass(awscosts)
             csv.setSpread(serviceTranslationBag)
-            results = csv.get()
-            print(results)
+            print(csv.get())
         else:
             spreadCalculator = SpreadCalculator()
             spreadCalculator.set_client(awscosts)
             spreadCalculator.set_translation_bag(serviceTranslationBag)
             result_spread_services(spreadCalculator, terminal_formatter, connectionString)
+    else:
+        if not args.format:
+            terminal_formatter.get(awscosts.getCosts(connectionString))
+        elif args.format == "csv":
+            csvString = CSV().setAWSCostsClass(awscosts).get()
+            print(csvString)
+        elif args.format == "awsraw":
+            print(json.dumps(awscosts.getCosts(connectionString), indent=4))
+        else:
+            raise Exception("This format is not implemented yet!")
+
 
 def __get_arguments_parsed():
     
