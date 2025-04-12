@@ -42,10 +42,17 @@ def main():
         else:
             terminal_formatter.get(awscosts.getCosts(connectionString))
     else:
-        spreadCalculator = SpreadCalculator()
-        spreadCalculator.set_client(awscosts)
-        spreadCalculator.set_translation_bag(serviceTranslationBag)
-        result_spread_services(spreadCalculator, terminal_formatter, connectionString)
+        if args.format == "csv":
+            csv = CSV()
+            csv.setAWSCostsClass(awscosts)
+            csv.setSpread(serviceTranslationBag)
+            results = csv.get()
+            print(results)
+        else:
+            spreadCalculator = SpreadCalculator()
+            spreadCalculator.set_client(awscosts)
+            spreadCalculator.set_translation_bag(serviceTranslationBag)
+            result_spread_services(spreadCalculator, terminal_formatter, connectionString)
 
 def __get_arguments_parsed():
     
